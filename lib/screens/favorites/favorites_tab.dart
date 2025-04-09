@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../blocs/favorites/favorites_bloc.dart';
 import '../../config/theme.dart';
@@ -37,7 +38,12 @@ class FavoritesTab extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.favorite_border, size: 64, color: Colors.grey),
+                    SvgPicture.asset(
+                      'assets/icons/Like_off.svg',
+                      width: 64,
+                      height: 64,
+                      colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                    ),
                     const SizedBox(height: 16),
                     const Text(
                       'Aucun favori pour le moment',

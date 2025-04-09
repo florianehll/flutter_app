@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../blocs/search/search_bloc.dart';
 import '../../config/theme.dart';
@@ -41,10 +42,29 @@ class _SearchTabState extends State<SearchTab> {
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Rechercher un artiste ou un album',
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SvgPicture.asset(
+                    'assets/icons/Recherche_Loupe.svg',
+                    width: 20,
+                    height: 20,
+                    colorFilter: ColorFilter.mode(
+                      Colors.grey[600]!,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
-                        icon: const Icon(Icons.clear),
+                        icon: SvgPicture.asset(
+                          'assets/icons/Recherche_Annuler.svg',
+                          width: 20,
+                          height: 20,
+                          colorFilter: ColorFilter.mode(
+                            Colors.grey[600]!,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                         onPressed: () {
                           _searchController.clear();
                           context.read<SearchBloc>().add(const ClearSearch());

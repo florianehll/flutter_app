@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../api/models/artist.dart';
 
@@ -30,25 +31,46 @@ class ArtistListItem extends StatelessWidget {
                   ),
                   errorWidget: (context, url, error) => Container(
                     color: Colors.grey[300],
-                    child: const Icon(Icons.person, size: 25),
+                    child: SvgPicture.asset(
+                      'assets/icons/Placeholder_artiste.svg',
+                      width: 25,
+                      height: 25,
+                      colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+                    ),
                   ),
                 )
               : Container(
                   color: Colors.grey[300],
-                  child: const Icon(Icons.person, size: 25),
+                  child: SvgPicture.asset(
+                    'assets/icons/Placeholder_artiste.svg',
+                    width: 25,
+                    height: 25,
+                    colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+                  ),
                 ),
         ),
       ),
       title: Text(
         artist.name ?? 'Artiste inconnu',
         style: const TextStyle(
+          fontFamily: 'SFPro',
           fontWeight: FontWeight.w500,
         ),
       ),
       subtitle: artist.genre != null
-          ? Text(artist.genre!)
+          ? Text(
+              artist.genre!,
+              style: const TextStyle(
+                fontFamily: 'SFPro',
+              ),
+            )
           : null,
-      trailing: const Icon(Icons.chevron_right),
+      trailing: SvgPicture.asset(
+        'assets/icons/Fleche_droite.svg',
+        width: 20,
+        height: 20,
+        colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+      ),
       onTap: onTap,
     );
   }

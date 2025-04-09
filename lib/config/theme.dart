@@ -77,10 +77,43 @@ class AppTheme {
         selectedItemColor: accentColor,
         unselectedItemColor: secondaryTextColor,
         type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: TextStyle(
+          fontFamily: 'SFPro',
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontFamily: 'SFPro',
+          fontSize: 12,
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: Colors.grey[200]!,
+        labelStyle: const TextStyle(
+          fontFamily: 'SFPro',
+          fontSize: 14,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       ),
       dividerTheme: const DividerThemeData(
         color: dividerColor,
         thickness: 1,
+      ),
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(fontFamily: 'SFPro'),
+        displayMedium: TextStyle(fontFamily: 'SFPro'),
+        displaySmall: TextStyle(fontFamily: 'SFPro'),
+        headlineLarge: TextStyle(fontFamily: 'SFPro'),
+        headlineMedium: TextStyle(fontFamily: 'SFPro'),
+        headlineSmall: TextStyle(fontFamily: 'SFPro'),
+        titleLarge: TextStyle(fontFamily: 'SFPro'),
+        titleMedium: TextStyle(fontFamily: 'SFPro'),
+        titleSmall: TextStyle(fontFamily: 'SFPro'),
+        bodyLarge: TextStyle(fontFamily: 'SFPro'),
+        bodyMedium: TextStyle(fontFamily: 'SFPro'),
+        bodySmall: TextStyle(fontFamily: 'SFPro'),
+        labelLarge: TextStyle(fontFamily: 'SFPro'),
+        labelMedium: TextStyle(fontFamily: 'SFPro'),
+        labelSmall: TextStyle(fontFamily: 'SFPro'),
       ),
     );
   }

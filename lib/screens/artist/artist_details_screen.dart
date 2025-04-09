@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../api/models/artist.dart';
 import '../../blocs/artist/artist_bloc.dart';
@@ -77,13 +78,23 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
                 ),
                 errorWidget: (context, url, error) => Container(
                   color: Colors.grey[300],
-                  child: const Icon(Icons.person, size: 80),
+                  child: SvgPicture.asset(
+                    'assets/icons/Placeholder_artiste.svg',
+                    width: 80,
+                    height: 80,
+                    colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+                  ),
                 ),
               )
             else
               Container(
                 color: Colors.grey[300],
-                child: const Icon(Icons.person, size: 80),
+                child: SvgPicture.asset(
+                  'assets/icons/Placeholder_artiste.svg',
+                  width: 80,
+                  height: 80,
+                  colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+                ),
               ),
             
             // Gradient overlay
@@ -111,6 +122,7 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
                   color: Colors.white,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
+                  fontFamily: 'SFPro',
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -125,9 +137,14 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
           builder: (context, state) {
             final isFavorite = state.isArtistFavorite(artist.id ?? '');
             return IconButton(
-              icon: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? Colors.red : Colors.white,
+              icon: SvgPicture.asset(
+                isFavorite ? 'assets/icons/Like_on.svg' : 'assets/icons/Like_off.svg',
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  isFavorite ? Colors.red : Colors.white,
+                  BlendMode.srcIn,
+                ),
               ),
               onPressed: () {
                 if (isFavorite) {
@@ -190,6 +207,7 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
                       "body": Style(
                         fontSize: FontSize(14),
                         lineHeight: LineHeight(1.5),
+                        fontFamily: 'SFPro',
                       ),
                     },
                   ),
@@ -212,22 +230,42 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
                     children: [
                       if (artist.website != null)
                         IconButton(
-                          icon: const Icon(Icons.language),
+                          icon: SvgPicture.asset(
+                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
+                            width: 24,
+                            height: 24,
+                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
+                          ),
                           onPressed: () => _launchUrl(artist.website!),
                         ),
                       if (artist.facebook != null)
                         IconButton(
-                          icon: const Icon(Icons.facebook),
+                          icon: SvgPicture.asset(
+                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
+                            width: 24,
+                            height: 24,
+                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
+                          ),
                           onPressed: () => _launchUrl(artist.facebook!),
                         ),
                       if (artist.twitter != null)
                         IconButton(
-                          icon: const Icon(Icons.alternate_email),
+                          icon: SvgPicture.asset(
+                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
+                            width: 24,
+                            height: 24,
+                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
+                          ),
                           onPressed: () => _launchUrl(artist.twitter!),
                         ),
                       if (artist.instagram != null)
                         IconButton(
-                          icon: const Icon(Icons.camera_alt_outlined),
+                          icon: SvgPicture.asset(
+                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
+                            width: 24,
+                            height: 24,
+                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
+                          ),
                           onPressed: () => _launchUrl(artist.instagram!),
                         ),
                     ],

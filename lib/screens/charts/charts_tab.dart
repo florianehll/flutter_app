@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../blocs/charts/charts_bloc.dart';
 import '../../config/theme.dart';
 import '../../widgets/chart_item_widget.dart';

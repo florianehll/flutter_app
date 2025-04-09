@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../blocs/charts/charts_bloc.dart';
 import '../../blocs/favorites/favorites_bloc.dart';
 import '../../blocs/search/search_bloc.dart';
@@ -73,17 +74,41 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               _tabController.animateTo(index);
             });
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart),
+              icon: SvgPicture.asset(
+                'assets/icons/Accueil_classements.svg',
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 0 ? AppTheme.accentColor : AppTheme.secondaryTextColor,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: 'Classements',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: SvgPicture.asset(
+                'assets/icons/Accueil_Recherche.svg',
+                width: 24, 
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 1 ? AppTheme.accentColor : AppTheme.secondaryTextColor,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: 'Recherche',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
+              icon: SvgPicture.asset(
+                'assets/icons/Accueil_Favoris.svg',
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 2 ? AppTheme.accentColor : AppTheme.secondaryTextColor,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: 'Favoris',
             ),
           ],

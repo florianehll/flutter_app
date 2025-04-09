@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../api/models/album.dart';
 
@@ -28,24 +29,45 @@ class AlbumListItem extends StatelessWidget {
                 ),
                 errorWidget: (context, url, error) => Container(
                   color: Colors.grey[300],
-                  child: const Icon(Icons.album, size: 25),
+                  child: SvgPicture.asset(
+                    'assets/icons/Placeholder_album.svg',
+                    width: 25,
+                    height: 25,
+                    colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+                  ),
                 ),
               )
             : Container(
                 color: Colors.grey[300],
-                child: const Icon(Icons.album, size: 25),
+                child: SvgPicture.asset(
+                  'assets/icons/Placeholder_album.svg',
+                  width: 25,
+                  height: 25,
+                  colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+                ),
               ),
       ),
       title: Text(
         album.name ?? 'Album inconnu',
         style: const TextStyle(
+          fontFamily: 'SFPro',
           fontWeight: FontWeight.w500,
         ),
       ),
       subtitle: album.artistName != null
-          ? Text(album.artistName!)
+          ? Text(
+              album.artistName!,
+              style: const TextStyle(
+                fontFamily: 'SFPro',
+              ),
+            )
           : null,
-      trailing: const Icon(Icons.chevron_right),
+      trailing: SvgPicture.asset(
+        'assets/icons/Fleche_droite.svg',
+        width: 20,
+        height: 20,
+        colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
+      ),
       onTap: onTap,
     );
   }
