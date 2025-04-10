@@ -46,7 +46,19 @@ class AppRouter {
     errorBuilder: (context, state) => 
       Scaffold(
         body: Center(
-          child: Text('Page non trouvée: ${state.error}'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, size: 48, color: Colors.red),
+              const SizedBox(height: 16),
+              Text('Page non trouvée: ${state.error}'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => context.go(AppConstants.homeRoute),
+                child: const Text('Retour à l\'accueil'),
+              ),
+            ],
+          ),
         ),
       ),
   );

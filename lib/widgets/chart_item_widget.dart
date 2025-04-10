@@ -68,6 +68,7 @@ class ChartItemWidget extends StatelessWidget {
         ),
       ),
       subtitle: Text(subtitle),
+      trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );
   }

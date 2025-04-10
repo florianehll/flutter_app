@@ -24,10 +24,10 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
     try {
       final response = await _audioDbService.getTopSingles();
       
-      if (response.trending == null) {
+      if (response.trending == null || response.trending!.isEmpty) {
         emit(state.copyWith(
           singlesStatus: ChartsStatus.failure,
-          singlesError: 'Données non disponibles',
+          singlesError: 'Aucun single disponible actuellement',
         ));
         return;
       }
@@ -37,9 +37,10 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
         singles: response.trending,
       ));
     } catch (e) {
+      print('Erreur lors du chargement des singles: $e');
       emit(state.copyWith(
         singlesStatus: ChartsStatus.failure,
-        singlesError: 'Erreur lors du chargement des singles',
+        singlesError: 'Erreur lors du chargement des singles. Veuillez réessayer.',
       ));
     }
   }
@@ -52,10 +53,10 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
     try {
       final response = await _audioDbService.getTopAlbums();
       
-      if (response.trending == null) {
+      if (response.trending == null || response.trending!.isEmpty) {
         emit(state.copyWith(
           albumsStatus: ChartsStatus.failure,
-          albumsError: 'Données non disponibles',
+          albumsError: 'Aucun album disponible actuellement',
         ));
         return;
       }
@@ -65,9 +66,10 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
         albums: response.trending,
       ));
     } catch (e) {
+      print('Erreur lors du chargement des albums: $e');
       emit(state.copyWith(
         albumsStatus: ChartsStatus.failure,
-        albumsError: 'Erreur lors du chargement des albums',
+        albumsError: 'Erreur lors du chargement des albums. Veuillez réessayer.',
       ));
     }
   }
