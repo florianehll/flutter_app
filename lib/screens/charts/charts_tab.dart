@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../blocs/charts/charts_bloc.dart';
 import '../../config/theme.dart';
@@ -74,14 +75,12 @@ class _ChartsTabState extends State<ChartsTab> with SingleTickerProviderStateMix
                     final item = state.singles![index];
                     return ChartItemWidget(
                       rank: index + 1,
-                      title: item.trackName ?? '',
-                      subtitle: item.artistName ?? '',
+                      title: item.trackName ?? 'Titre inconnu',
+                      subtitle: item.artistName ?? 'Artiste inconnu',
                       imageUrl: item.trackThumbUrl ?? item.artistThumbUrl ?? '',
                       onTap: () {
                         if (item.artistId != null) {
-                          // Navigate to artist details
-                          // Using GoRouter
-                          // context.go('/artist/${item.artistId}');
+                          context.go('/artist/${item.artistId}');
                         }
                       },
                     );
@@ -119,14 +118,14 @@ class _ChartsTabState extends State<ChartsTab> with SingleTickerProviderStateMix
                     final item = state.albums![index];
                     return ChartItemWidget(
                       rank: index + 1,
-                      title: item.albumName ?? '',
-                      subtitle: item.artistName ?? '',
+                      title: item.albumName ?? 'Album inconnu',
+                      subtitle: item.artistName ?? 'Artiste inconnu',
                       imageUrl: item.albumThumbUrl ?? item.artistThumbUrl ?? '',
                       onTap: () {
-                        if (item.artistId != null) {
-                          // Navigate to artist details
-                          // Using GoRouter
-                          // context.go('/artist/${item.artistId}');
+                        if (item.albumId != null) {
+                          context.go('/album/${item.albumId}');
+                        } else if (item.artistId != null) {
+                          context.go('/artist/${item.artistId}');
                         }
                       },
                     );

@@ -52,7 +52,9 @@ class MyApp extends StatelessWidget {
           create: (context) => AlbumBloc(audioDbService: audioDbService),
         ),
         BlocProvider<ChartsBloc>(
-          create: (context) => ChartsBloc(audioDbService: audioDbService),
+          create: (context) => ChartsBloc(audioDbService: audioDbService)
+            ..add(const LoadTopSingles())
+            ..add(const LoadTopAlbums()),
         ),
         BlocProvider<SearchBloc>(
           create: (context) => SearchBloc(audioDbService: audioDbService),
@@ -64,6 +66,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         title: 'AudioDB App',
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         routerConfig: AppRouter.router,
         localizationsDelegates: const [

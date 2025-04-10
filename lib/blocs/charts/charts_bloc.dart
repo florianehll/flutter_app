@@ -17,6 +17,7 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
   }
   
   Future<void> _onLoadTopSingles(
+<<<<<<< HEAD
   LoadTopSingles event,
   Emitter<ChartsState> emit,
 ) async {
@@ -31,6 +32,32 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
       emit(state.copyWith(
         singlesStatus: ChartsStatus.failure,
         singlesError: 'Aucun single trouvé',
+=======
+    LoadTopSingles event,
+    Emitter<ChartsState> emit,
+  ) async {
+    emit(state.copyWith(singlesStatus: ChartsStatus.loading));
+    try {
+      final response = await _audioDbService.getTopSingles();
+      
+      if (response.trending == null || response.trending!.isEmpty) {
+        emit(state.copyWith(
+          singlesStatus: ChartsStatus.failure,
+          singlesError: 'Aucun single disponible actuellement',
+        ));
+        return;
+      }
+      
+      emit(state.copyWith(
+        singlesStatus: ChartsStatus.success,
+        singles: response.trending,
+      ));
+    } catch (e) {
+      print('Erreur lors du chargement des singles: $e');
+      emit(state.copyWith(
+        singlesStatus: ChartsStatus.failure,
+        singlesError: 'Erreur lors du chargement des singles. Veuillez réessayer.',
+>>>>>>> eb8bcdc039b0075cdf309a49aa45d26a07e68826
       ));
       return;
     }
@@ -65,11 +92,15 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
       final response = await _audioDbService.getTopAlbums();
       print('Réponse reçue: ${response.trending != null ? '${response.trending!.length} résultats' : 'null'}');
       
+<<<<<<< HEAD
       if (response.trending == null) {
         print('Aucun résultat d\'albums trouvé');
+=======
+      if (response.trending == null || response.trending!.isEmpty) {
+>>>>>>> eb8bcdc039b0075cdf309a49aa45d26a07e68826
         emit(state.copyWith(
           albumsStatus: ChartsStatus.failure,
-          albumsError: 'Données non disponibles',
+          albumsError: 'Aucun album disponible actuellement',
         ));
         return;
       }
@@ -85,10 +116,14 @@ class ChartsBloc extends Bloc<ChartsEvent, ChartsState> {
       ));
       print('Albums chargés avec succès');
     } catch (e) {
+<<<<<<< HEAD
       print('Erreur détaillée lors du chargement des albums: $e');
+=======
+      print('Erreur lors du chargement des albums: $e');
+>>>>>>> eb8bcdc039b0075cdf309a49aa45d26a07e68826
       emit(state.copyWith(
         albumsStatus: ChartsStatus.failure,
-        albumsError: 'Erreur lors du chargement des albums',
+        albumsError: 'Erreur lors du chargement des albums. Veuillez réessayer.',
       ));
     }
   }
