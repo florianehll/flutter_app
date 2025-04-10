@@ -1,3 +1,5 @@
+// NOUVEAU theme.dart, ignore lautre theme.dart
+
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -57,7 +59,7 @@ class AppTheme {
           color: textColor,
         ),
       ),
-      tabBarTheme: const TabBarTheme(
+      tabBarTheme: const TabBarThemeData(
         labelColor: textColor,
         unselectedLabelColor: secondaryTextColor,
         indicatorSize: TabBarIndicatorSize.tab,

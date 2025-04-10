@@ -32,8 +32,23 @@ class TrendingItem extends Equatable {
   @JsonKey(name: 'strArtistThumb')
   final String? artistThumbUrl;
   
-  @JsonKey(name: 'intChartPlace')
+  @JsonKey(name: 'intChartPlace', fromJson: _chartPlaceFromJson)
   final int? chartPlace;
+  
+  // Méthode statique pour convertir la chaîne en entier
+  static int? _chartPlaceFromJson(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is String) {
+      try {
+        return int.parse(value);
+      } catch (e) {
+        print('Erreur lors de la conversion de chartPlace: $value');
+        return null;
+      }
+    }
+    return null;
+  }
   
   const TrendingItem({
     this.trackId,
@@ -47,6 +62,7 @@ class TrendingItem extends Equatable {
     this.artistThumbUrl,
     this.chartPlace,
   });
+  
   
   factory TrendingItem.fromJson(Map<String, dynamic> json) => 
       _$TrendingItemFromJson(json);

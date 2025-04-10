@@ -16,7 +16,7 @@ TrendingItem _$TrendingItemFromJson(Map<String, dynamic> json) => TrendingItem(
       trackThumbUrl: json['strTrackThumb'] as String?,
       albumThumbUrl: json['strAlbumThumb'] as String?,
       artistThumbUrl: json['strArtistThumb'] as String?,
-      chartPlace: (json['intChartPlace'] as num?)?.toInt(),
+      chartPlace: TrendingItem._chartPlaceFromJson(json['intChartPlace']),
     );
 
 Map<String, dynamic> _$TrendingItemToJson(TrendingItem instance) =>
