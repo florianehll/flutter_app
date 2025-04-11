@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/theme.dart';
 
 class AppErrorWidget extends StatelessWidget {
   final String message;
@@ -28,7 +29,10 @@ class AppErrorWidget extends StatelessWidget {
               message,
               textAlign: TextAlign.center,
               style: const TextStyle(
+                fontFamily: 'SFProText',
                 fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: AppTheme.textColor,
               ),
             ),
             if (onRetry != null)
@@ -36,7 +40,24 @@ class AppErrorWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16.0),
                 child: ElevatedButton(
                   onPressed: onRetry,
-                  child: const Text('Réessayer'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.accentColor,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                  ),
+                  child: const Text(
+                    'Réessayer',
+                    style: TextStyle(
+                      fontFamily: 'SFProText',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
           ],

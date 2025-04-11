@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/theme.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({Key? key}) : super(key: key);
@@ -9,12 +10,18 @@ class LoadingWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(),
+          CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.accentColor),
+            strokeWidth: 3,
+          ),
           SizedBox(height: 16),
           Text(
             'Chargement en cours...',
             style: TextStyle(
+              fontFamily: 'SFProText',
               fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: AppTheme.textColor,
             ),
           ),
         ],

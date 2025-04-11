@@ -1,11 +1,9 @@
-// NOUVEAU theme.dart, ignore lautre theme.dart
-
 import 'package:flutter/material.dart';
 
 class AppTheme {
   // Colors
   static const Color primaryColor = Color(0xFF000000);
-  static const Color accentColor = Color(0xFF1DB954);
+  static const Color accentColor = Color(0xFF1BB46B); // Vert correspondant à la maquette
   static const Color backgroundColor = Color(0xFFFFFFFF);
   static const Color darkBackgroundColor = Color(0xFF2A2A2A);
   static const Color textColor = Color(0xFF000000);
@@ -14,30 +12,42 @@ class AppTheme {
   
   // Text Styles
   static const TextStyle headingStyle = TextStyle(
-    fontFamily: 'SFPro',
+    fontFamily: 'SFProDisplay',
     fontSize: 30,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w900, // Black
     color: textColor,
+    letterSpacing: -0.5,
   );
   
   static const TextStyle titleStyle = TextStyle(
-    fontFamily: 'SFPro',
+    fontFamily: 'SFProText',
     fontSize: 20,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w600, // SemiBold
     color: textColor,
+    letterSpacing: -0.4,
   );
   
   static const TextStyle subtitleStyle = TextStyle(
-    fontFamily: 'SFPro',
+    fontFamily: 'SFProText',
     fontSize: 16,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w400, // Regular
     color: secondaryTextColor,
+    letterSpacing: -0.3,
   );
   
   static const TextStyle bodyStyle = TextStyle(
-    fontFamily: 'SFPro',
+    fontFamily: 'SFProText',
     fontSize: 14,
+    fontWeight: FontWeight.w400, // Regular
     color: textColor,
+    letterSpacing: -0.2,
+  );
+
+  static const TextStyle tabLabelStyle = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 16,
+    fontWeight: FontWeight.w500, // Medium
+    letterSpacing: -0.2,
   );
   
   // Theme Data
@@ -45,7 +55,7 @@ class AppTheme {
     return ThemeData(
       primaryColor: primaryColor,
       scaffoldBackgroundColor: backgroundColor,
-      fontFamily: 'SFPro',
+      fontFamily: 'SFProText',
       colorScheme: ColorScheme.light(
         primary: primaryColor,
         secondary: accentColor,
@@ -54,7 +64,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         backgroundColor: backgroundColor,
         elevation: 0,
-        titleTextStyle: titleStyle,
+        titleTextStyle: headingStyle,
         iconTheme: IconThemeData(
           color: textColor,
         ),
@@ -64,15 +74,18 @@ class AppTheme {
         unselectedLabelColor: secondaryTextColor,
         indicatorSize: TabBarIndicatorSize.tab,
         labelStyle: TextStyle(
-          fontFamily: 'SFPro',
+          fontFamily: 'SFProText',
           fontSize: 16,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w600, // SemiBold
+          letterSpacing: -0.2,
         ),
         unselectedLabelStyle: TextStyle(
-          fontFamily: 'SFPro',
+          fontFamily: 'SFProText',
           fontSize: 16,
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.w400, // Regular
+          letterSpacing: -0.2,
         ),
+        indicatorColor: accentColor,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: backgroundColor,
@@ -80,19 +93,22 @@ class AppTheme {
         unselectedItemColor: secondaryTextColor,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(
-          fontFamily: 'SFPro',
+          fontFamily: 'SFProText',
           fontSize: 12,
+          fontWeight: FontWeight.w500, // Medium
         ),
         unselectedLabelStyle: TextStyle(
-          fontFamily: 'SFPro',
+          fontFamily: 'SFProText',
           fontSize: 12,
+          fontWeight: FontWeight.w400, // Regular
         ),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: Colors.grey[200]!,
         labelStyle: const TextStyle(
-          fontFamily: 'SFPro',
+          fontFamily: 'SFProText',
           fontSize: 14,
+          fontWeight: FontWeight.w400, // Regular
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       ),
@@ -101,21 +117,21 @@ class AppTheme {
         thickness: 1,
       ),
       textTheme: const TextTheme(
-        displayLarge: TextStyle(fontFamily: 'SFPro'),
-        displayMedium: TextStyle(fontFamily: 'SFPro'),
-        displaySmall: TextStyle(fontFamily: 'SFPro'),
-        headlineLarge: TextStyle(fontFamily: 'SFPro'),
-        headlineMedium: TextStyle(fontFamily: 'SFPro'),
-        headlineSmall: TextStyle(fontFamily: 'SFPro'),
-        titleLarge: TextStyle(fontFamily: 'SFPro'),
-        titleMedium: TextStyle(fontFamily: 'SFPro'),
-        titleSmall: TextStyle(fontFamily: 'SFPro'),
-        bodyLarge: TextStyle(fontFamily: 'SFPro'),
-        bodyMedium: TextStyle(fontFamily: 'SFPro'),
-        bodySmall: TextStyle(fontFamily: 'SFPro'),
-        labelLarge: TextStyle(fontFamily: 'SFPro'),
-        labelMedium: TextStyle(fontFamily: 'SFPro'),
-        labelSmall: TextStyle(fontFamily: 'SFPro'),
+        displayLarge: TextStyle(fontFamily: 'SFProDisplay'),
+        displayMedium: TextStyle(fontFamily: 'SFProDisplay'),
+        displaySmall: TextStyle(fontFamily: 'SFProDisplay'),
+        headlineLarge: TextStyle(fontFamily: 'SFProDisplay'),
+        headlineMedium: TextStyle(fontFamily: 'SFProDisplay'),
+        headlineSmall: TextStyle(fontFamily: 'SFProDisplay'),
+        titleLarge: TextStyle(fontFamily: 'SFProText'),
+        titleMedium: TextStyle(fontFamily: 'SFProText'),
+        titleSmall: TextStyle(fontFamily: 'SFProText'),
+        bodyLarge: TextStyle(fontFamily: 'SFProText'),
+        bodyMedium: TextStyle(fontFamily: 'SFProText'),
+        bodySmall: TextStyle(fontFamily: 'SFProText'),
+        labelLarge: TextStyle(fontFamily: 'SFProText'),
+        labelMedium: TextStyle(fontFamily: 'SFProText'),
+        labelSmall: TextStyle(fontFamily: 'SFProText'),
       ),
     );
   }

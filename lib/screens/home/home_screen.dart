@@ -74,6 +74,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               _tabController.animateTo(index);
             });
           },
+          selectedFontSize: 11,
+          unselectedFontSize: 11,
+          iconSize: 24,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: const TextStyle(
+            fontFamily: 'SFProText',
+            fontWeight: FontWeight.w500,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontFamily: 'SFProText',
+            fontWeight: FontWeight.w400,
+          ),
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(

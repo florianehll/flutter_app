@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../config/theme.dart';
 
 class ChartItemWidget extends StatelessWidget {
   final int rank;
@@ -19,57 +20,94 @@ class ChartItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      leading: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Rank
-          SizedBox(
-            width: 24,
-            child: Text(
-              rank.toString(),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+    return InkWell(
+      onTap: onTap,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
+        child: Row(
+          children: [
+            // Rank (numéro)
+            SizedBox(
+              width: 20,
+              child: Text(
+                rank.toString(),
+                style: const TextStyle(
+                  fontFamily: 'SFProText',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: AppTheme.textColor,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(width: 16),
-          
-          // Image
-          SizedBox(
-            width: 50,
-            height: 50,
-            child: imageUrl.isNotEmpty
-                ? CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Container(
-                      color: Colors.grey[300],
+            const SizedBox(width: 12),
+            
+            // Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: SizedBox(
+                width: 48,
+                height: 48,
+                child: imageUrl.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Container(
+                          color: Colors.grey[300],
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          color: Colors.grey[300],
+                          child: const Icon(Icons.music_note, size: 24, color: Colors.grey),
+                        ),
+                      )
+                    : Container(
+                        color: Colors.grey[300],
+                        child: const Icon(Icons.music_note, size: 24, color: Colors.grey),
+                      ),
+              ),
+            ),
+            
+            const SizedBox(width: 12),
+            
+            // Title and subtitle
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontFamily: 'SFProText',
+                      fontWeight: FontWeight.w600, // SemiBold
+                      fontSize: 15,
+                      letterSpacing: -0.2,
                     ),
-                    errorWidget: (context, url, error) => Container(
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.music_note, size: 25),
-                    ),
-                  )
-                : Container(
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.music_note, size: 25),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-          ),
-        ],
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w500,
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontFamily: 'SFProText',
+                      color: AppTheme.secondaryTextColor,
+                      fontWeight: FontWeight.w400, // Regular
+                      fontSize: 13,
+                      letterSpacing: -0.1,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            
+            // Suppression de l'icône flèche à droite pour correspondre à la maquette
+          ],
         ),
       ),
-      subtitle: Text(subtitle),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: onTap,
     );
   }
 }
