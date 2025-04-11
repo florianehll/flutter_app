@@ -23,6 +23,8 @@ class ArtistDetailsScreen extends StatefulWidget {
 }
 
 class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
+  bool _showFullBiography = false;
+
   @override
   void initState() {
     super.initState();
@@ -68,7 +70,6 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
         background: Stack(
           fit: StackFit.expand,
           children: [
-            // Artist Image
             if (artist.thumbUrl != null)
               CachedNetworkImage(
                 imageUrl: artist.thumbUrl!,
@@ -96,8 +97,6 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
                   colorFilter: ColorFilter.mode(Colors.grey[600]!, BlendMode.srcIn),
                 ),
               ),
-            
-            // Gradient overlay
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -110,49 +109,66 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
                 ),
               ),
             ),
-            
-            // Artist name
             Positioned(
               left: 16,
               right: 80,
               bottom: 16,
-              child: Text(
-                artist.name ?? 'Artiste',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'SFPro',
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    artist.name ?? 'Artiste',
+                    style: const TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.5,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (artist.country != null)
+                    Text(
+                      '${artist.country} • ${artist.genre ?? ""}',
+                      style: const TextStyle(
+                        fontFamily: 'SFProText',
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                ],
               ),
             ),
           ],
         ),
       ),
       actions: [
-        // Favorite button
         BlocBuilder<FavoritesBloc, FavoritesState>(
           builder: (context, state) {
             final isFavorite = state.isArtistFavorite(artist.id ?? '');
-            return IconButton(
-              icon: SvgPicture.asset(
-                isFavorite ? 'assets/icons/Like_on.svg' : 'assets/icons/Like_off.svg',
-                width: 24,
-                height: 24,
-                colorFilter: ColorFilter.mode(
-                  isFavorite ? Colors.red : Colors.white,
-                  BlendMode.srcIn,
+            return Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                icon: SvgPicture.asset(
+                  isFavorite ? 'assets/icons/Like_on.svg' : 'assets/icons/Like_on.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(
+                    isFavorite ? Colors.red : AppTheme.accentColor,
+                    BlendMode.srcIn,
+                  ),
                 ),
+                onPressed: () {
+                  if (isFavorite) {
+                    context.read<FavoritesBloc>().add(RemoveFavoriteArtist(artist.id ?? ''));
+                  } else {
+                    context.read<FavoritesBloc>().add(AddFavoriteArtist(artist));
+                  }
+                },
               ),
-              onPressed: () {
-                if (isFavorite) {
-                  context.read<FavoritesBloc>().add(RemoveFavoriteArtist(artist.id ?? ''));
-                } else {
-                  context.read<FavoritesBloc>().add(AddFavoriteArtist(artist));
-                }
-              },
             );
           },
         ),
@@ -170,106 +186,72 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Artist info
-            if (artist.genre != null || artist.country != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: Row(
-                  children: [
-                    if (artist.genre != null)
-                      Chip(
-                        label: Text(artist.genre!),
-                        backgroundColor: Colors.grey[200],
-                      ),
-                    const SizedBox(width: 8),
-                    if (artist.country != null)
-                      Chip(
-                        label: Text(artist.country!),
-                        backgroundColor: Colors.grey[200],
-                      ),
-                  ],
-                ),
-              ),
-            
-            // Biography
             if (biography.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     'Biographie',
-                    style: AppTheme.titleStyle,
+                    style: TextStyle(
+                      fontFamily: 'SFProText',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.4,
+                    ),
                   ),
                   const SizedBox(height: 8),
-                  Html(
-                    data: biography,
-                    style: {
-                      "body": Style(
-                        fontSize: FontSize(14),
-                        lineHeight: LineHeight(1.5),
-                        fontFamily: 'SFPro',
-                      ),
-                    },
-                  ),
-                ],
-              ),
-              
-            // Social links
-            if (artist.website != null || artist.facebook != null || artist.twitter != null || artist.instagram != null)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Réseaux sociaux',
-                    style: AppTheme.titleStyle,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      if (artist.website != null)
-                        IconButton(
-                          icon: SvgPicture.asset(
-                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
-                            width: 24,
-                            height: 24,
-                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
-                          ),
-                          onPressed: () => _launchUrl(artist.website!),
+                  if (_showFullBiography)
+                    Html(
+                      data: biography,
+                      style: {
+                        "body": Style(
+                          fontSize: FontSize(14),
+                          lineHeight: LineHeight(1.5),
+                          fontFamily: 'SFProText',
+                          color: AppTheme.textColor,
+                          margin: Margins.zero,
                         ),
-                      if (artist.facebook != null)
-                        IconButton(
-                          icon: SvgPicture.asset(
-                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
-                            width: 24,
-                            height: 24,
-                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
-                          ),
-                          onPressed: () => _launchUrl(artist.facebook!),
+                      },
+                    )
+                  else
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Html(
+                          data: _getTruncatedBiography(biography),
+                          style: {
+                            "body": Style(
+                              fontSize: FontSize(14),
+                              lineHeight: LineHeight(1.5),
+                              fontFamily: 'SFProText',
+                              color: AppTheme.textColor,
+                              margin: Margins.zero,
+                            ),
+                          },
                         ),
-                      if (artist.twitter != null)
-                        IconButton(
-                          icon: SvgPicture.asset(
-                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
-                            width: 24,
-                            height: 24,
-                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _showFullBiography = true;
+                            });
+                          },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: const Size(50, 30),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft,
                           ),
-                          onPressed: () => _launchUrl(artist.twitter!),
-                        ),
-                      if (artist.instagram != null)
-                        IconButton(
-                          icon: SvgPicture.asset(
-                            'assets/icons/Etoile.svg', // Utiliser une icône appropriée si disponible
-                            width: 24,
-                            height: 24,
-                            colorFilter: ColorFilter.mode(Colors.grey[800]!, BlendMode.srcIn),
+                          child: const Text(
+                            'Voir plus',
+                            style: TextStyle(
+                              fontFamily: 'SFProText',
+                              color: AppTheme.accentColor,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          onPressed: () => _launchUrl(artist.instagram!),
                         ),
-                    ],
-                  ),
+                      ],
+                    ),
                 ],
               ),
           ],
@@ -278,9 +260,28 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
     );
   }
   
+  String _getTruncatedBiography(String biography) {
+    if (biography.length < 300) {
+      return biography;
+    }
+    
+    int endIndex = 300;
+    while (endIndex < biography.length && endIndex < 350) {
+      if (biography[endIndex] == '.' || biography[endIndex] == ' ') {
+        break;
+      }
+      endIndex++;
+    }
+    
+    if (endIndex >= 350) {
+      endIndex = 300;
+    }
+    
+    return biography.substring(0, endIndex + 1);
+  }
+  
   Widget _buildAlbumsList(BuildContext context, ArtistLoaded state) {
     if (state.albums.isEmpty && !state.isLoadingAlbums) {
-      // Load albums if not already loading
       context.read<ArtistBloc>().add(LoadArtistAlbums(widget.artistId));
       return const SliverToBoxAdapter(child: SizedBox.shrink());
     }
@@ -293,7 +294,12 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
             padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
             child: Text(
               'Albums',
-              style: AppTheme.titleStyle,
+              style: TextStyle(
+                fontFamily: 'SFProDisplay',
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.4,
+              ),
             ),
           ),
           
@@ -315,7 +321,15 @@ class _ArtistDetailsScreenState extends State<ArtistDetailsScreen> {
                   : state.albums.isEmpty
                       ? const Padding(
                           padding: EdgeInsets.all(16.0),
-                          child: Center(child: Text('Aucun album trouvé')),
+                          child: Center(
+                            child: Text(
+                              'Aucun album trouvé',
+                              style: TextStyle(
+                                fontFamily: 'SFProText',
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
                         )
                       : Padding(
                           padding: const EdgeInsets.all(16.0),
