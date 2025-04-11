@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Colors
+  
   static const Color primaryColor = Color(0xFF000000);
-  static const Color accentColor = Color(0xFF1BB46B); // Vert pour les éléments d'accent
+  static const Color accentColor = Color(0xFF1BB46B); // Vert correspondant à la maquette
   static const Color backgroundColor = Color(0xFFFFFFFF);
   static const Color darkBackgroundColor = Color(0xFF2A2A2A);
   static const Color textColor = Color(0xFF000000);
   static const Color secondaryTextColor = Color(0xFF7D7D7D);
   static const Color dividerColor = Color(0xFFE5E5E5);
-  static const Color lightButtonColor = Color(0xFFF5F5F5); // Couleur pour les boutons clairs
   
-  // Text Styles
+  
   static const TextStyle headingStyle = TextStyle(
     fontFamily: 'SFProDisplay',
     fontSize: 30,
-    fontWeight: FontWeight.w900, // Black
+    fontWeight: FontWeight.w900, 
     color: textColor,
     letterSpacing: -0.5,
   );
   
   static const TextStyle titleStyle = TextStyle(
-    fontFamily: 'SFProDisplay',
+    fontFamily: 'SFProText',
     fontSize: 20,
-    fontWeight: FontWeight.w600, // SemiBold
+    fontWeight: FontWeight.w600, 
     color: textColor,
     letterSpacing: -0.4,
   );
@@ -31,7 +30,7 @@ class AppTheme {
   static const TextStyle subtitleStyle = TextStyle(
     fontFamily: 'SFProText',
     fontSize: 16,
-    fontWeight: FontWeight.w500, // Medium
+    fontWeight: FontWeight.w400, 
     color: secondaryTextColor,
     letterSpacing: -0.3,
   );
@@ -39,7 +38,7 @@ class AppTheme {
   static const TextStyle bodyStyle = TextStyle(
     fontFamily: 'SFProText',
     fontSize: 14,
-    fontWeight: FontWeight.w400, // Regular
+    fontWeight: FontWeight.w400, 
     color: textColor,
     letterSpacing: -0.2,
   );
@@ -47,18 +46,11 @@ class AppTheme {
   static const TextStyle tabLabelStyle = TextStyle(
     fontFamily: 'SFProText',
     fontSize: 16,
-    fontWeight: FontWeight.w500, // Medium
+    fontWeight: FontWeight.w500, 
     letterSpacing: -0.2,
   );
   
-  static const TextStyle buttonLabelStyle = TextStyle(
-    fontFamily: 'SFProText',
-    fontSize: 14,
-    fontWeight: FontWeight.w500, // Medium
-    letterSpacing: -0.2,
-  );
   
-  // Theme Data
   static ThemeData get lightTheme {
     return ThemeData(
       primaryColor: primaryColor,
@@ -84,25 +76,16 @@ class AppTheme {
         labelStyle: TextStyle(
           fontFamily: 'SFProText',
           fontSize: 16,
-          fontWeight: FontWeight.w600, // SemiBold
+          fontWeight: FontWeight.w600, 
           letterSpacing: -0.2,
         ),
         unselectedLabelStyle: TextStyle(
           fontFamily: 'SFProText',
           fontSize: 16,
-          fontWeight: FontWeight.w400, // Regular
+          fontWeight: FontWeight.w400, 
           letterSpacing: -0.2,
         ),
         indicatorColor: accentColor,
-      ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: textColor,
-          side: const BorderSide(color: Colors.grey),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: backgroundColor,
@@ -112,12 +95,12 @@ class AppTheme {
         selectedLabelStyle: TextStyle(
           fontFamily: 'SFProText',
           fontSize: 12,
-          fontWeight: FontWeight.w500, // Medium
+          fontWeight: FontWeight.w500, 
         ),
         unselectedLabelStyle: TextStyle(
           fontFamily: 'SFProText',
           fontSize: 12,
-          fontWeight: FontWeight.w400, // Regular
+          fontWeight: FontWeight.w400, 
         ),
       ),
       chipTheme: ChipThemeData(
@@ -125,7 +108,7 @@ class AppTheme {
         labelStyle: const TextStyle(
           fontFamily: 'SFProText',
           fontSize: 14,
-          fontWeight: FontWeight.w400, // Regular
+          fontWeight: FontWeight.w400, 
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       ),
